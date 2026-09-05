@@ -1,0 +1,1633 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>ZEEKR FAMILY</title>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    font-family:Inter,Arial,sans-serif;
+    background:#070707;
+    color:#f5f5f5;
+    min-height:100vh;
+}
+
+button,
+input,
+textarea{
+    font:inherit;
+}
+
+button{
+    cursor:pointer;
+}
+
+a{
+    color:inherit;
+    text-decoration:none;
+}
+
+/* ================= NAV ================= */
+
+.nav{
+    position:fixed;
+    top:18px;
+    left:50%;
+    transform:translateX(-50%);
+    width:min(1100px,calc(100% - 30px));
+    height:64px;
+    z-index:1000;
+
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+
+    padding:0 20px;
+
+    background:rgba(18,18,18,.76);
+    border:1px solid #272727;
+    border-radius:18px;
+
+    backdrop-filter:blur(20px);
+}
+
+.logo{
+    font-size:20px;
+    font-weight:800;
+    letter-spacing:2px;
+}
+
+.logo span{
+    color:#777;
+}
+
+.nav-links{
+    display:flex;
+    gap:5px;
+}
+
+.nav-links button{
+    background:transparent;
+    color:#888;
+    border:0;
+    padding:10px 13px;
+    border-radius:10px;
+    transition:.2s;
+}
+
+.nav-links button:hover,
+.nav-links button.active{
+    background:#222;
+    color:#fff;
+}
+
+.mobile-menu{
+    display:none;
+    background:#1d1d1d;
+    border:1px solid #333;
+    color:white;
+    border-radius:10px;
+    padding:9px 12px;
+}
+
+/* ================= PAGE ================= */
+
+.page{
+    width:min(1100px,calc(100% - 30px));
+    margin:auto;
+    padding-top:110px;
+}
+
+.screen{
+    display:none;
+    animation:appear .35s ease;
+}
+
+.screen.active{
+    display:block;
+}
+
+@keyframes appear{
+    from{
+        opacity:0;
+        transform:translateY(10px);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+/* ================= HERO ================= */
+
+.hero{
+    min-height:calc(100vh - 130px);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+}
+
+.hero-inner{
+    max-width:760px;
+}
+
+.badge{
+    display:inline-flex;
+    padding:8px 13px;
+    border:1px solid #292929;
+    background:#111;
+    color:#999;
+    border-radius:100px;
+    font-size:12px;
+    margin-bottom:22px;
+}
+
+.hero h1{
+    font-size:clamp(52px,10vw,105px);
+    line-height:.9;
+    letter-spacing:-5px;
+    font-weight:800;
+}
+
+.hero h1 span{
+    color:#777;
+}
+
+.hero p{
+    margin:28px auto;
+    max-width:620px;
+    color:#8d8d8d;
+    line-height:1.7;
+}
+
+.hero-actions{
+    display:flex;
+    justify-content:center;
+    gap:10px;
+    flex-wrap:wrap;
+}
+
+.btn{
+    border:1px solid #303030;
+    background:#171717;
+    color:#fff;
+    padding:13px 20px;
+    border-radius:12px;
+    transition:.2s;
+}
+
+.btn:hover{
+    transform:translateY(-2px);
+    background:#222;
+}
+
+.btn.primary{
+    background:#f1f1f1;
+    color:#080808;
+    border-color:#f1f1f1;
+}
+
+.btn.primary:hover{
+    background:#fff;
+}
+
+/* ================= HEADERS ================= */
+
+.section-head{
+    margin-bottom:28px;
+}
+
+.section-head small{
+    color:#777;
+    text-transform:uppercase;
+    letter-spacing:2px;
+    font-size:11px;
+}
+
+.section-head h2{
+    margin-top:8px;
+    font-size:38px;
+    letter-spacing:-1.5px;
+}
+
+.section-head p{
+    margin-top:9px;
+    color:#777;
+}
+
+/* ================= CARDS ================= */
+
+.grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:12px;
+}
+
+.card{
+    background:#101010;
+    border:1px solid #222;
+    border-radius:17px;
+    padding:22px;
+    transition:.25s;
+}
+
+.card:hover{
+    border-color:#3b3b3b;
+    transform:translateY(-3px);
+}
+
+.card-number{
+    color:#555;
+    font-size:12px;
+    margin-bottom:18px;
+}
+
+.card h3{
+    margin-bottom:9px;
+}
+
+.card p{
+    color:#858585;
+    line-height:1.6;
+    font-size:14px;
+}
+
+/* ================= RULES ================= */
+
+.rule-tabs{
+    display:flex;
+    gap:7px;
+    margin-bottom:18px;
+}
+
+.rule-tab{
+    padding:11px 16px;
+    border-radius:11px;
+    border:1px solid #282828;
+    background:#111;
+    color:#777;
+}
+
+.rule-tab.active{
+    background:#eee;
+    color:#050505;
+}
+
+.rules-box{
+    display:none;
+}
+
+.rules-box.active{
+    display:block;
+    animation:appear .25s ease;
+}
+
+.rule{
+    padding:18px 20px;
+    background:#101010;
+    border:1px solid #202020;
+    border-radius:13px;
+    margin-bottom:8px;
+    line-height:1.6;
+}
+
+.rule strong{
+    color:#fff;
+}
+
+.warning{
+    margin:18px 0;
+    padding:17px;
+    border-radius:13px;
+    background:#171717;
+    border:1px solid #383838;
+    color:#aaa;
+}
+
+.warning b{
+    color:#fff;
+}
+
+.people{
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+    margin-top:20px;
+}
+
+.person{
+    padding:10px 13px;
+    background:#111;
+    border:1px solid #292929;
+    border-radius:10px;
+    color:#aaa;
+    font-size:13px;
+}
+
+/* ================= REPORTS ================= */
+
+.report-layout{
+    display:grid;
+    grid-template-columns:360px 1fr;
+    gap:14px;
+    align-items:start;
+}
+
+.form-card{
+    background:#101010;
+    border:1px solid #222;
+    border-radius:17px;
+    padding:20px;
+    position:sticky;
+    top:100px;
+}
+
+.form-card h3{
+    margin-bottom:5px;
+}
+
+.form-card > p{
+    color:#666;
+    font-size:13px;
+    margin-bottom:18px;
+}
+
+.field{
+    margin-bottom:11px;
+}
+
+.field label{
+    display:block;
+    color:#777;
+    font-size:11px;
+    margin-bottom:6px;
+}
+
+.field input,
+.field textarea,
+.field select{
+    width:100%;
+    background:#080808;
+    color:#fff;
+    border:1px solid #292929;
+    outline:none;
+    border-radius:10px;
+    padding:11px 12px;
+}
+
+.field textarea{
+    min-height:110px;
+    resize:vertical;
+}
+
+.field input:focus,
+.field textarea:focus,
+.field select:focus{
+    border-color:#555;
+}
+
+.file-input{
+    padding:10px!important;
+}
+
+.form-card .btn{
+    width:100%;
+    margin-top:4px;
+}
+
+.reports{
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+}
+
+.report{
+    background:#101010;
+    border:1px solid #222;
+    border-radius:17px;
+    padding:19px;
+}
+
+.report-top{
+    display:flex;
+    justify-content:space-between;
+    gap:10px;
+    margin-bottom:13px;
+}
+
+.report-user{
+    font-weight:700;
+}
+
+.report-date{
+    color:#555;
+    font-size:11px;
+}
+
+.report-meta{
+    display:flex;
+    flex-wrap:wrap;
+    gap:6px;
+    margin-bottom:12px;
+}
+
+.meta{
+    background:#191919;
+    color:#888;
+    padding:5px 8px;
+    border-radius:7px;
+    font-size:11px;
+}
+
+.report-text{
+    color:#aaa;
+    line-height:1.6;
+    white-space:pre-wrap;
+}
+
+.report-image{
+    width:100%;
+    max-height:400px;
+    object-fit:cover;
+    margin-top:14px;
+    border-radius:12px;
+    border:1px solid #252525;
+}
+
+.empty{
+    padding:35px;
+    text-align:center;
+    background:#101010;
+    border:1px dashed #292929;
+    border-radius:17px;
+    color:#666;
+}
+
+.status{
+    margin-top:10px;
+    font-size:12px;
+    text-align:center;
+    color:#777;
+}
+
+/* ================= FOOTER ================= */
+
+footer{
+    padding:50px 0 30px;
+    text-align:center;
+    color:#444;
+    font-size:12px;
+}
+
+/* ================= CURSOR ================= */
+
+.cursor-dot,
+.cursor-ring{
+    position:fixed;
+    pointer-events:none;
+    z-index:9999;
+    border-radius:50%;
+    transform:translate(-50%,-50%);
+}
+
+.cursor-dot{
+    width:5px;
+    height:5px;
+    background:#fff;
+}
+
+.cursor-ring{
+    width:28px;
+    height:28px;
+    border:1px solid #555;
+    transition:
+        width .2s,
+        height .2s,
+        border-color .2s;
+}
+
+/* ================= MOBILE ================= */
+
+@media(max-width:800px){
+
+    .nav{
+        height:58px;
+    }
+
+    .nav-links{
+        display:none;
+        position:absolute;
+        top:67px;
+        left:0;
+        width:100%;
+        padding:8px;
+        background:#111;
+        border:1px solid #292929;
+        border-radius:14px;
+        flex-direction:column;
+    }
+
+    .nav-links.open{
+        display:flex;
+    }
+
+    .nav-links button{
+        text-align:left;
+        padding:13px;
+    }
+
+    .mobile-menu{
+        display:block;
+    }
+
+    .hero{
+        min-height:calc(100vh - 110px);
+    }
+
+    .hero h1{
+        letter-spacing:-3px;
+    }
+
+    .grid{
+        grid-template-columns:1fr;
+    }
+
+    .report-layout{
+        grid-template-columns:1fr;
+    }
+
+    .form-card{
+        position:static;
+    }
+
+    .section-head h2{
+        font-size:30px;
+    }
+}
+
+@media(pointer:coarse){
+    .cursor-dot,
+    .cursor-ring{
+        display:none;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- ================= NAV ================= -->
+
+<nav class="nav">
+
+    <div class="logo">
+        ZEEKR<span>FAMILY</span>
+    </div>
+
+    <div class="nav-links" id="navLinks">
+        <button onclick="openPage('home')" class="active">Главная</button>
+        <button onclick="openPage('about')">О семье</button>
+        <button onclick="openPage('growth')">Развитие</button>
+        <button onclick="openPage('rules')">Правила</button>
+        <button onclick="openPage('reports')">Репорты</button>
+    </div>
+
+    <button class="mobile-menu" onclick="toggleMenu()">☰</button>
+
+</nav>
+
+
+<main class="page">
+
+<!-- ================= HOME ================= -->
+
+<section class="screen active" id="home">
+
+    <div class="hero">
+
+        <div class="hero-inner">
+
+            <div class="badge">
+                GTA 5 RP • ZEEKR FAMILY
+            </div>
+
+            <h1>
+                ZEEKR<br>
+                <span>FAMILY</span>
+            </h1>
+
+            <p>
+                Твой стиль. Твоя команда.
+                Свой круг людей, развитие,
+                контракты и возможности.
+            </p>
+
+            <div class="hero-actions">
+                <button class="btn primary" onclick="openPage('about')">
+                    О семье
+                </button>
+
+                <button class="btn" onclick="openPage('reports')">
+                    Репорты
+                </button>
+
+                <button class="btn" onclick="openPage('rules')">
+                    Правила
+                </button>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= ABOUT ================= -->
+
+<section class="screen" id="about">
+
+    <div class="section-head">
+        <small>ZEEKR FAMILY</small>
+        <h2>О семье</h2>
+        <p>Не просто фамилия — команда и свой круг людей.</p>
+    </div>
+
+    <div class="grid">
+
+        <div class="card">
+            <div class="card-number">01</div>
+            <h3>Автопарк</h3>
+            <p>
+                Доступ к семейному автопарку ZEEKR
+                и удобное использование транспорта.
+            </p>
+        </div>
+
+        <div class="card">
+            <div class="card-number">02</div>
+            <h3>Контракты</h3>
+            <p>
+                Работа с семейными контрактами
+                и возможность развиваться вместе.
+            </p>
+        </div>
+
+        <div class="card">
+            <div class="card-number">03</div>
+            <h3>Развитие</h3>
+            <p>
+                Получение ролей, развитие навыков
+                и новые возможности внутри семьи.
+            </p>
+        </div>
+
+        <div class="card">
+            <div class="card-number">04</div>
+            <h3>Поддержка</h3>
+            <p>
+                Бесплатный заряд и помощь
+                со стороны участников семьи.
+            </p>
+        </div>
+
+        <div class="card">
+            <div class="card-number">05</div>
+            <h3>Своя команда</h3>
+            <p>
+                Общение, совместная игра
+                и единая команда.
+            </p>
+        </div>
+
+        <div class="card">
+            <div class="card-number">06</div>
+            <h3>Возможности</h3>
+            <p>
+                Дополнительные возможности
+                для активных участников.
+            </p>
+        </div>
+
+    </div>
+
+    <div class="section-head" style="margin-top:45px;">
+        <small>JOIN</small>
+        <h2>Вступление</h2>
+    </div>
+
+    <div class="grid">
+
+        <div class="card">
+            <h3>Фамилия</h3>
+            <p>Фамилия должна быть ZEEKR.</p>
+        </div>
+
+        <div class="card">
+            <h3>Уровень</h3>
+            <p>Необходимый уровень для вступления.</p>
+        </div>
+
+        <div class="card">
+            <h3>Характер</h3>
+            <p>Уважение, дисциплина и адекватность.</p>
+        </div>
+
+        <div class="card">
+            <h3>Активность</h3>
+            <p>Желание играть, развиваться и быть частью команды.</p>
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= GROWTH ================= -->
+
+<section class="screen" id="growth">
+
+    <div class="section-head">
+        <small>PROGRESSION</small>
+        <h2>Развитие</h2>
+        <p>Постепенное развитие внутри ZEEKR FAMILY.</p>
+    </div>
+
+    <div class="grid">
+
+        <div class="card">
+            <div class="card-number">01</div>
+            <h3>Старт</h3>
+            <p>
+                Вступление в семью и знакомство
+                с правилами и участниками.
+            </p>
+        </div>
+
+        <div class="card">
+            <div class="card-number">02</div>
+            <h3>Навыки</h3>
+            <p>
+                Развитие навыков и получение
+                возможности брать больше задач.
+            </p>
+        </div>
+
+        <div class="card">
+            <div class="card-number">03</div>
+            <h3>Роли</h3>
+            <p>
+                При наличии необходимых навыков
+                можно получить соответствующие роли.
+            </p>
+        </div>
+
+        <div class="card">
+            <div class="card-number">04</div>
+            <h3>Контракты</h3>
+            <p>
+                Участие в контрактах и командной работе.
+            </p>
+        </div>
+
+        <div class="card">
+            <div class="card-number">05</div>
+            <h3>Активность</h3>
+            <p>
+                Активные игроки получают больше
+                возможностей для развития.
+            </p>
+        </div>
+
+        <div class="card">
+            <div class="card-number">06</div>
+            <h3>Команда</h3>
+            <p>
+                Помощь семье и участие
+                в общих задачах.
+            </p>
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= RULES ================= -->
+
+<section class="screen" id="rules">
+
+    <div class="section-head">
+        <small>RULES</small>
+        <h2>Правила</h2>
+        <p>Выбери категорию правил.</p>
+    </div>
+
+    <div class="rule-tabs">
+
+        <button class="rule-tab active" onclick="showRules('contracts',this)">
+            Контракты
+        </button>
+
+        <button class="rule-tab" onclick="showRules('cars',this)">
+            Автомобили
+        </button>
+
+    </div>
+
+
+    <!-- CONTRACTS -->
+
+    <div class="rules-box active" id="contracts">
+
+        <div class="warning">
+            <b>РАЗДЕЛ: КОНТРАКТЫ</b><br><br>
+
+            <b>Быстрый</b> — закрыть контракт,
+            общее время ± 30 минут задержки.<br>
+
+            <b>Средний</b> — закрыть контракт,
+            общее время ± 1–3 часа задержки.<br>
+
+            <b>Долгий</b> — закрыть контракт,
+            общее время ± 12 часов задержки.
+        </div>
+
+        <div class="rule">
+            <strong>Порядок работы с контрактами</strong><br><br>
+
+            Мы заходим в Discord в раздел «Контракты».<br><br>
+
+            Пишем контракт до набора 2/3 человек,
+            указывая тип контракта:<br><br>
+
+            • Быстрый<br>
+            • Средний<br>
+            • Долгий
+        </div>
+
+        <div class="rule">
+            Количество людей за контракт зависит
+            от ответственных людей за контракт.
+            Они заранее пишут, например:
+            «Контракты берём по 2 человека минимум»
+            или «Контракты берём по 3 человека минимум».
+        </div>
+
+        <div class="warning">
+            <b>ВАЖНО:</b><br>
+            Во время X2 могут быть какие-то изменения.
+            Это зависит от количества людей и от быстроты
+            закрытия контракта.
+        </div>
+
+        <div class="rule">
+            <strong>1.1.</strong> Нельзя брать в контракт тех, кто не откидывал +.
+        </div>
+
+        <div class="rule">
+            <strong>1.2.</strong> Нельзя брать контракт в соло (без разрешения).
+        </div>
+
+        <div class="rule">
+            <strong>1.3.</strong> Нельзя задерживать контракт.
+        </div>
+
+        <div class="rule">
+            <strong>1.4.</strong> Нельзя разжигать конфликт из-за контрактов.
+        </div>
+
+        <div class="rule">
+            <strong>1.5.</strong> Могу не брать в контракт людей,
+            кто не прокачен (суммарно если нет 10 навыков,
+            кроме кулинарии и стрельбы).
+        </div>
+
+        <div class="rule">
+            <strong>1.6.</strong> Брать контракты по порядку.
+        </div>
+
+        <div class="rule">
+            <strong>1.7.</strong> Штраф можно получить при несоблюдении правил
+            (1.1, 1.2, 1.3, 1.4, 1.5, 1.6).
+            Штраф даётся от 0$ до 1.000.000$.
+        </div>
+
+        <div class="section-head" style="margin-top:35px;">
+            <small>RESPONSIBLE</small>
+            <h2>Ответственные</h2>
+        </div>
+
+        <div class="people">
+            <div class="person">Svyat Nisheta</div>
+            <div class="person">Vladimir Nisheta</div>
+            <div class="person">Sasha Ignatev</div>
+            <div class="person">Kaoru Sakurai</div>
+        </div>
+
+    </div>
+
+
+    <!-- CARS -->
+
+    <div class="rules-box" id="cars">
+
+        <div class="warning">
+            <b>РАЗДЕЛ: АВТОМОБИЛИ</b>
+        </div>
+
+        <div class="rule">
+            <strong>2.1.</strong> Нельзя брать транспорт, когда кем-либо занят.
+        </div>
+
+        <div class="rule">
+            <strong>2.2.</strong> Нельзя спавнить транспорт, когда кем-либо занят.
+        </div>
+
+        <div class="rule">
+            <strong>2.3.</strong> Нельзя продавать/брать чужие вещи в транспорте.
+        </div>
+
+        <div class="rule">
+            <strong>2.4.</strong> Нельзя разжигать конфликт из-за транспорта.
+        </div>
+
+        <div class="rule">
+            <strong>2.5.</strong> Нельзя оставить транспорт без бензина (минимум 50 л).
+        </div>
+
+        <div class="rule">
+            <strong>2.6.</strong> После себя починить транспорт на СТО (минимум 95%).
+        </div>
+
+        <div class="rule">
+            <strong>2.7.</strong> Нельзя таранить авто около особы.
+        </div>
+
+        <div class="rule">
+            <strong>2.8.</strong> Штраф можно получить при несоблюдении правил
+            (2.1, 2.2, 2.3, 2.5, 2.6, 2.7).
+            Штраф даётся от 0$ до 1.000.000$.
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= REPORTS ================= -->
+
+<section class="screen" id="reports">
+
+    <div class="section-head">
+        <small>PUBLIC REPORTS</small>
+        <h2>Репорты</h2>
+        <p>
+            Опубликованные репорты видят все посетители сайта.
+        </p>
+    </div>
+
+    <div class="report-layout">
+
+        <div class="form-card">
+
+            <h3>Опубликовать репорт</h3>
+
+            <p>
+                Заполни данные и отправь репорт.
+            </p>
+
+            <form id="reportForm">
+
+                <div class="field">
+                    <label>ТВОЙ НИК</label>
+                    <input
+                        id="nickname"
+                        type="text"
+                        maxlength="40"
+                        required
+                        placeholder="Например: ZEEKR_Name"
+                    >
+                </div>
+
+                <div class="field">
+                    <label>НОМЕР</label>
+                    <input
+                        id="number"
+                        type="text"
+                        maxlength="30"
+                        required
+                        placeholder="Игровой номер"
+                    >
+                </div>
+
+                <div class="field">
+                    <label>ТИП</label>
+
+                    <select id="type">
+
+                        <option value="Контракт">
+                            Контракт
+                        </option>
+
+                        <option value="Автомобиль">
+                            Автомобиль
+                        </option>
+
+                        <option value="Другое">
+                            Другое
+                        </option>
+
+                    </select>
+
+                </div>
+
+                <div class="field">
+                    <label>ОПИСАНИЕ</label>
+
+                    <textarea
+                        id="description"
+                        maxlength="2000"
+                        required
+                        placeholder="Опиши ситуацию..."
+                    ></textarea>
+
+                </div>
+
+                <div class="field">
+                    <label>ФОТО</label>
+
+                    <input
+                        id="photo"
+                        class="file-input"
+                        type="file"
+                        accept="image/png,image/jpeg,image/webp"
+                    >
+
+                </div>
+
+                <button
+                    class="btn primary"
+                    type="submit"
+                    id="submitBtn"
+                >
+                    Опубликовать
+                </button>
+
+                <div class="status" id="status"></div>
+
+            </form>
+
+        </div>
+
+
+        <div class="reports" id="reportsList">
+
+            <div class="empty">
+                Загрузка репортов...
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+</main>
+
+
+<footer>
+    ZEEKR FAMILY © 2026
+</footer>
+
+
+<div class="cursor-dot"></div>
+<div class="cursor-ring"></div>
+
+
+<script>
+
+/* =====================================================
+   SUPABASE
+   =====================================================
+
+   ВСТАВЬ СЮДА ДАННЫЕ ИЗ SUPABASE
+
+   SUPABASE_URL:
+   https://xxxxxxxx.supabase.co
+
+   SUPABASE_KEY:
+   publishable key
+
+   НЕ ВСТАВЛЯЙ service_role key.
+   ===================================================== */
+
+const SUPABASE_URL = "https://snjoqulmhmblgmaggikk.supabase.co";
+const SUPABASE_KEY = "sb_publishable_WDj0bp2JIxVbJwha_O5u2g_w6tmVVKm";
+
+let supabaseClient = null;
+
+if(
+    !SUPABASE_URL.includes("ВСТАВЬ") &&
+    !SUPABASE_KEY.includes("ВСТАВЬ")
+){
+    supabaseClient = supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_KEY
+    );
+}
+
+
+/* =====================================================
+   NAVIGATION
+   ===================================================== */
+
+function openPage(page){
+
+    document.querySelectorAll(".screen")
+        .forEach(el => el.classList.remove("active"));
+
+    const target = document.getElementById(page);
+
+    if(target){
+        target.classList.add("active");
+    }
+
+    document.querySelectorAll(".nav-links button")
+        .forEach(btn => btn.classList.remove("active"));
+
+    const buttons = document.querySelectorAll(".nav-links button");
+
+    buttons.forEach(btn => {
+
+        if(
+            btn.getAttribute("onclick") &&
+            btn.getAttribute("onclick").includes("'" + page + "'")
+        ){
+            btn.classList.add("active");
+        }
+
+    });
+
+    document.getElementById("navLinks")
+        .classList.remove("open");
+
+    window.scrollTo({
+        top:0,
+        behavior:"smooth"
+    });
+
+    if(page === "reports"){
+        loadReports();
+    }
+}
+
+
+/* =====================================================
+   MOBILE MENU
+   ===================================================== */
+
+function toggleMenu(){
+
+    document.getElementById("navLinks")
+        .classList.toggle("open");
+
+}
+
+
+/* =====================================================
+   RULE TABS
+   ===================================================== */
+
+function showRules(type, button){
+
+    document.querySelectorAll(".rules-box")
+        .forEach(el => el.classList.remove("active"));
+
+    document.getElementById(type)
+        .classList.add("active");
+
+    document.querySelectorAll(".rule-tab")
+        .forEach(el => el.classList.remove("active"));
+
+    button.classList.add("active");
+}
+
+
+/* =====================================================
+   REPORTS
+   ===================================================== */
+
+async function loadReports(){
+
+    const list = document.getElementById("reportsList");
+
+    if(!supabaseClient){
+
+        list.innerHTML = `
+            <div class="empty">
+                Supabase пока не подключён.<br><br>
+                Вставь SUPABASE_URL и SUPABASE_KEY
+                в код сайта.
+            </div>
+        `;
+
+        return;
+    }
+
+    list.innerHTML = `
+        <div class="empty">
+            Загрузка...
+        </div>
+    `;
+
+    const {
+        data,
+        error
+    } = await supabaseClient
+        .from("reports")
+        .select("*")
+        .order("created_at", {
+            ascending:false
+        });
+
+    if(error){
+
+        console.error(error);
+
+        list.innerHTML = `
+            <div class="empty">
+                Не удалось загрузить репорты.
+            </div>
+        `;
+
+        return;
+    }
+
+    if(!data || data.length === 0){
+
+        list.innerHTML = `
+            <div class="empty">
+                Репортов пока нет.
+            </div>
+        `;
+
+        return;
+    }
+
+    list.innerHTML = data
+        .map(report => createReportHTML(report))
+        .join("");
+}
+
+
+/* =====================================================
+   REPORT HTML
+   ===================================================== */
+
+function createReportHTML(report){
+
+    const date = report.created_at
+        ? new Date(report.created_at)
+            .toLocaleString("ru-RU")
+        : "";
+
+    const image = report.image_url
+        ? `
+            <img
+                class="report-image"
+                src="${escapeHTML(report.image_url)}"
+                alt="Фото репорта"
+            >
+          `
+        : "";
+
+    return `
+        <article class="report">
+
+            <div class="report-top">
+
+                <div class="report-user">
+                    ${escapeHTML(report.nickname)}
+                </div>
+
+                <div class="report-date">
+                    ${date}
+                </div>
+
+            </div>
+
+            <div class="report-meta">
+
+                <span class="meta">
+                    № ${escapeHTML(report.number)}
+                </span>
+
+                <span class="meta">
+                    ${escapeHTML(report.type)}
+                </span>
+
+            </div>
+
+            <div class="report-text">
+                ${escapeHTML(report.description)}
+            </div>
+
+            ${image}
+
+        </article>
+    `;
+}
+
+
+/* =====================================================
+   ESCAPE HTML
+   ===================================================== */
+
+function escapeHTML(value){
+
+    return String(value ?? "")
+        .replace(/&/g,"&amp;")
+        .replace(/</g,"&lt;")
+        .replace(/>/g,"&gt;")
+        .replace(/"/g,"&quot;")
+        .replace(/'/g,"&#039;");
+}
+
+
+/* =====================================================
+   CREATE REPORT
+   ===================================================== */
+
+document.getElementById("reportForm")
+.addEventListener("submit", async function(event){
+
+    event.preventDefault();
+
+    const status = document.getElementById("status");
+    const submitBtn = document.getElementById("submitBtn");
+
+    if(!supabaseClient){
+
+        status.textContent =
+            "Сначала подключи Supabase.";
+
+        return;
+    }
+
+    const nickname =
+        document.getElementById("nickname")
+        .value
+        .trim();
+
+    const number =
+        document.getElementById("number")
+        .value
+        .trim();
+
+    const type =
+        document.getElementById("type")
+        .value;
+
+    const description =
+        document.getElementById("description")
+        .value
+        .trim();
+
+    const photo =
+        document.getElementById("photo")
+        .files[0];
+
+    if(!nickname || !number || !description){
+
+        status.textContent =
+            "Заполни все обязательные поля.";
+
+        return;
+    }
+
+    submitBtn.disabled = true;
+    submitBtn.textContent = "Публикация...";
+    status.textContent = "";
+
+
+    /* =========================================
+       UPLOAD PHOTO
+       ========================================= */
+
+    let imageUrl = null;
+
+    if(photo){
+
+        if(photo.size > 5 * 1024 * 1024){
+
+            status.textContent =
+                "Фото должно быть меньше 5 MB.";
+
+            submitBtn.disabled = false;
+            submitBtn.textContent = "Опубликовать";
+
+            return;
+        }
+
+        const extension =
+            photo.name
+            .split(".")
+            .pop()
+            .toLowerCase();
+
+        const fileName =
+            `${crypto.randomUUID()}.${extension}`;
+
+        const filePath =
+            `reports/${fileName}`;
+
+        const {
+            error: uploadError
+        } = await supabaseClient
+            .storage
+            .from("report-images")
+            .upload(
+                filePath,
+                photo,
+                {
+                    cacheControl:"3600",
+                    upsert:false
+                }
+            );
+
+        if(uploadError){
+
+            console.error(uploadError);
+
+            status.textContent =
+                "Не удалось загрузить фото.";
+
+            submitBtn.disabled = false;
+            submitBtn.textContent = "Опубликовать";
+
+            return;
+        }
+
+        const {
+            data: publicData
+        } = supabaseClient
+            .storage
+            .from("report-images")
+            .getPublicUrl(filePath);
+
+        imageUrl =
+            publicData.publicUrl;
+    }
+
+
+    /* =========================================
+       INSERT REPORT
+       ========================================= */
+
+    const {
+        error
+    } = await supabaseClient
+        .from("reports")
+        .insert({
+
+            nickname,
+            number,
+            type,
+            description,
+            image_url:imageUrl
+
+        });
+
+    if(error){
+
+        console.error(error);
+
+        status.textContent =
+            "Ошибка публикации.";
+
+        submitBtn.disabled = false;
+        submitBtn.textContent = "Опубликовать";
+
+        return;
+    }
+
+
+    /* =========================================
+       SUCCESS
+       ========================================= */
+
+    document.getElementById("reportForm")
+        .reset();
+
+    status.textContent =
+        "Репорт опубликован.";
+
+    submitBtn.disabled = false;
+    submitBtn.textContent =
+        "Опубликовать";
+
+    await loadReports();
+
+});
+
+
+/* =====================================================
+   CURSOR
+   ===================================================== */
+
+const dot =
+    document.querySelector(".cursor-dot");
+
+const ring =
+    document.querySelector(".cursor-ring");
+
+let mouseX = 0;
+let mouseY = 0;
+
+let ringX = 0;
+let ringY = 0;
+
+document.addEventListener("mousemove", event => {
+
+    mouseX = event.clientX;
+    mouseY = event.clientY;
+
+    dot.style.left = mouseX + "px";
+    dot.style.top = mouseY + "px";
+
+});
+
+function animateCursor(){
+
+    ringX += (mouseX - ringX) * .15;
+    ringY += (mouseY - ringY) * .15;
+
+    ring.style.left = ringX + "px";
+    ring.style.top = ringY + "px";
+
+    requestAnimationFrame(animateCursor);
+}
+
+animateCursor();
+
+
+document.addEventListener("mouseover", event => {
+
+    if(
+        event.target.matches(
+            "button,a,input,textarea,select"
+        )
+    ){
+
+        ring.style.width = "40px";
+        ring.style.height = "40px";
+
+    }
+
+});
+
+
+document.addEventListener("mouseout", event => {
+
+    if(
+        event.target.matches(
+            "button,a,input,textarea,select"
+        )
+    ){
+
+        ring.style.width = "28px";
+        ring.style.height = "28px";
+
+    }
+
+});
+
+
+/* =====================================================
+   INITIAL
+   ===================================================== */
+
+loadReports();
+
+</script>
+
+</body>
+</html>
